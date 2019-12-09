@@ -5,5 +5,5 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver
 
 @Component
 class QueryResolver(private val dao : Mongo${rootType}Dao) : GraphQLQueryResolver {
-    fun allPerson() :List<${rootType}> = dao.findAll()
+    fun all${rootType}() :List<${rootType}> = dao.findAll()
 }
