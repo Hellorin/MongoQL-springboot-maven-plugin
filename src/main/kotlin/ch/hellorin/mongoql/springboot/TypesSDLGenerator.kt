@@ -6,9 +6,12 @@ import java.io.FileWriter
 
 object TypesSDLGenerator {
     fun generate(types : List<Type>) {
-        File("./generated-resources/graphql").mkdirs()
-        File("./generated-resources/graphql/types.graphqls").createNewFile()
-        FileWriter(File("./generated-resources/graphql/types.graphqls")).use { out ->
+        val folder = listOf(".", "generated-resources", "graphql").joinToString(File.separator)
+
+        File(folder).mkdirs()
+
+        File(listOf(folder, "types.graphqls").joinToString (File.separator)).createNewFile()
+        FileWriter(listOf(folder, "types.graphqls").joinToString (File.separator)).use { out ->
             out.write(types.joinToString(separator = "\n\n") { it.toString() })
             out.flush()
         }

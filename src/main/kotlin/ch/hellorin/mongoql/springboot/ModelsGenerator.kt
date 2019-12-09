@@ -6,16 +6,14 @@ import java.io.File
 import java.io.FileWriter
 import java.io.StringWriter
 
-object ModelsGenerator {
-    private const val FREEMARKER_TEMPLATE_NAME = "modelClasses.ftl"
+object ModelsGenerator : MongoQLFileGenerator {
+    override fun getTemplateFilename(): String = "modelClasses.ftl"
 
     fun generate(
             packageName : String,
             graphQLTypes: List<Type>,
             mongoDbParams : MongoDBParams
     ) {
-        val template = FreemarkerConfiguration.getTemplate(FREEMARKER_TEMPLATE_NAME)
-
         val rootDocumentType = graphQLTypes.filter { it.isMainType() }
         val rootTypeAttributes =  rootDocumentType[0].attributes
         val otherTypes = graphQLTypes.filter { !it.isMainType() }
@@ -28,10 +26,10 @@ object ModelsGenerator {
                 "types" to otherTypes
         );
 
-        File("./generated-sources/src/main/kotlin/${packageName.replace(".", File.separator)}").mkdirs()
-        FileWriter(File("./generated-sources/src/main/kotlin/${packageName.replace(".", File.separator)}${File.separator}Models.kt")).use { out ->
-            template.process(inputData, out)
-            out.flush()
-        }
+        processTemplate(
+                baseFolder = listOf(".", "generated-sources", "src", "main", "kotlin", packageName.replace(".", File.separator)).joinToString (File.separator),
+                generatedFilename = "Models.kt",
+                inputData = inputData
+        )
     }
 }
