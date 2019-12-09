@@ -34,6 +34,7 @@ class SpringBootClassesGenerator : AbstractMojo() {
         RepositoryGenerator.generate(packageName, graphQLTypes)
         QueryResolverGenerator.generate(packageName, graphQLTypes)
         TypesSDLGenerator.generate(graphQLTypes)
+        ConfigurationGenerator.generate(packageName, graphQLTypes)
     }
 
 }

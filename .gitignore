@@ -4,6 +4,7 @@ target
 
 # Generated sources
 generated-sources
+generated-resources
 
 # Log file
 *.log
