@@ -13,10 +13,8 @@ object QueriesSDLGenerator : MongoQLFreemarkerFileGenerator {
                 "rootType" to rootDocumentType[0].typeName
         )
 
-        val folder = listOf(".", "generated-resources", "graphql").joinToString(File.separator)
-
         processTemplate(
-                baseFolder = listOf(folder).joinToString(separator = File.separator),
+                baseFolder = listOf(".", "generated-resources", "graphql").joinToString(separator = File.separator),
                 generatedFilename = "query.graphqls",
                 inputData = inputData,
                 types = types
