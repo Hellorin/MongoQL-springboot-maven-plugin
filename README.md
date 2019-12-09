@@ -1,0 +1,1 @@
+# MongoQL-springboot-maven-plugin
