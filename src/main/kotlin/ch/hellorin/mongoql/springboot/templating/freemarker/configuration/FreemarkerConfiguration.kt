@@ -1,4 +1,4 @@
-package ch.hellorin.mongoql.springboot
+package ch.hellorin.mongoql.springboot.templating.freemarker.configuration
 
 import freemarker.template.Configuration
 import freemarker.template.TemplateExceptionHandler

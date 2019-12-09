@@ -1,12 +1,11 @@
-package ch.hellorin.mongoql.springboot
+package ch.hellorin.mongoql.springboot.templating.freemarker
 
 import com.hellorin.mongoql.Type
 import com.hellorin.mongoql.db.MongoDBParams
 import java.io.File
 import java.io.FileWriter
-import java.io.StringWriter
 
-object ModelsGenerator : MongoQLFileGenerator {
+object ModelsGenerator : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename(): String = "modelClasses.ftl"
 
     fun generate(
@@ -29,7 +28,8 @@ object ModelsGenerator : MongoQLFileGenerator {
         processTemplate(
                 baseFolder = listOf(".", "generated-sources", "src", "main", "kotlin", packageName.replace(".", File.separator)).joinToString (File.separator),
                 generatedFilename = "Models.kt",
-                inputData = inputData
+                inputData = inputData,
+                types = graphQLTypes
         )
     }
 }

@@ -1,9 +1,9 @@
-package ch.hellorin.mongoql.springboot
+package ch.hellorin.mongoql.springboot.templating.freemarker
 
 import com.hellorin.mongoql.Type
 import java.io.File
 
-object QueryResolverGenerator : MongoQLFileGenerator {
+object QueryResolverGenerator : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename() = "queryResolver.ftl"
 
     fun generate(packageName: String, types: List<Type>) {
@@ -17,7 +17,8 @@ object QueryResolverGenerator : MongoQLFileGenerator {
         processTemplate(
                 baseFolder = listOf(".", "generated-sources", "src", "main", "kotlin", packageName.replace(".", File.separator)).joinToString(separator = File.separator),
                 generatedFilename = "QueryResolver.kt",
-                inputData = inputData
+                inputData = inputData,
+                types = types
         )
     }
 }

@@ -1,5 +1,10 @@
 package ch.hellorin.mongoql.springboot
 
+import ch.hellorin.mongoql.springboot.templating.TypesSDLGenerator
+import ch.hellorin.mongoql.springboot.templating.freemarker.ConfigurationGenerator
+import ch.hellorin.mongoql.springboot.templating.freemarker.ModelsGenerator
+import ch.hellorin.mongoql.springboot.templating.freemarker.QueryResolverGenerator
+import ch.hellorin.mongoql.springboot.templating.freemarker.RepositoryGenerator
 import com.hellorin.mongoql.MongoQLSchemaGenerator
 import com.hellorin.mongoql.db.MongoDBParams
 import com.hellorin.mongoql.graphql.GraphQLParams
