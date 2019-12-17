@@ -1,5 +1,11 @@
 package ch.hellorin.mongoql.springboot.templating.freemarker
 
 import org.junit.Assert.*
+import org.junit.Test
 
-class ConfigurationGeneratorTest
+internal class ConfigurationGeneratorTest {
+    @Test
+    fun `test`() {
+
+    }
+}

@@ -2,4 +2,8 @@ package ch.hellorin.mongoql.springboot.templating.freemarker
 
 import org.junit.Assert.*
 
-class QueriesSDLGeneratorTest
+internal class QueriesSDLGeneratorTest {
+    fun `test`() {
+
+    }
+}
