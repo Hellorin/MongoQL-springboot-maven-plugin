@@ -3,7 +3,9 @@ package ch.hellorin.mongoql.springboot.templating.freemarker
 import com.hellorin.mongoql.Type
 import java.io.File
 
-object QueriesSDLGenerator : MongoQLFreemarkerFileGenerator {
+class QueriesSDLGenerator(
+        private val folder : String = listOf(".", "generated-resources", "graphql").joinToString(separator = File.separator)
+) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename() = "queries.ftl"
 
     fun generate(types: List<Type>) {
@@ -14,7 +16,7 @@ object QueriesSDLGenerator : MongoQLFreemarkerFileGenerator {
         )
 
         processTemplate(
-                baseFolder = listOf(".", "generated-resources", "graphql").joinToString(separator = File.separator),
+                baseFolder = folder,
                 generatedFilename = "query.graphqls",
                 inputData = inputData,
                 types = types

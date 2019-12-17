@@ -5,7 +5,9 @@ import com.hellorin.mongoql.db.MongoDBParams
 import java.io.File
 import java.io.FileWriter
 
-object ModelsGenerator : MongoQLFreemarkerFileGenerator {
+class ModelsGenerator(
+        private val folder : String = listOf(".", "generated-sources", "src", "main", "kotlin").joinToString(File.separator)
+) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename(): String = "modelClasses.ftl"
 
     fun generate(
@@ -26,7 +28,7 @@ object ModelsGenerator : MongoQLFreemarkerFileGenerator {
         );
 
         processTemplate(
-                baseFolder = listOf(".", "generated-sources", "src", "main", "kotlin", packageName.replace(".", File.separator)).joinToString (File.separator),
+                baseFolder = listOf(folder, packageName.replace(".", File.separator)).joinToString (File.separator),
                 generatedFilename = "Models.kt",
                 inputData = inputData,
                 types = graphQLTypes

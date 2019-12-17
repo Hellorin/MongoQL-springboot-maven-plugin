@@ -3,7 +3,9 @@ package ch.hellorin.mongoql.springboot.templating.freemarker
 import com.hellorin.mongoql.Type
 import java.io.File
 
-object ConfigurationGenerator : MongoQLFreemarkerFileGenerator {
+class ConfigurationGenerator(
+        private val folder: String = listOf(".", "generated-sources", "src", "main", "kotlin").joinToString(File.separator)
+) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename() = "configuration.ftl"
 
     fun generate(packageName: String, types: List<Type>) {
@@ -11,7 +13,7 @@ object ConfigurationGenerator : MongoQLFreemarkerFileGenerator {
                 "packageName" to packageName
         )
         processTemplate(
-                listOf(".", "generated-sources", "src", "main", "kotlin", packageName.replace(".", File.separator)).joinToString(separator = File.separator),
+                listOf(folder, packageName.replace(".", File.separator)).joinToString(separator = File.separator),
                 "Configuration.kt",
                 inputData,
                 types

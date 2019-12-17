@@ -32,12 +32,13 @@ class SpringBootClassesGenerator : AbstractMojo() {
 
         val graphQLTypes = MongoQLSchemaGenerator().generate(mongoDbParams, graphqlParams)
 
-        ModelsGenerator.generate(packageName, graphQLTypes, mongoDbParams)
-        RepositoryGenerator.generate(packageName, graphQLTypes)
-        QueryResolverGenerator.generate(packageName, graphQLTypes)
-        ConfigurationGenerator.generate(packageName, graphQLTypes)
-        TypesSDLGenerator.generate(graphQLTypes)
-        QueriesSDLGenerator.generate(graphQLTypes)
+        ModelsGenerator().generate(packageName, graphQLTypes, mongoDbParams)
+        RepositoryGenerator().generate(packageName, graphQLTypes)
+        QueryResolverGenerator().generate(packageName, graphQLTypes)
+        ConfigurationGenerator().generate(packageName, graphQLTypes)
+        TypesSDLGenerator().generate(graphQLTypes)
+        QueriesSDLGenerator().generate(graphQLTypes)
+        ApplicationConfigurationGenerator().generate(graphQLTypes, mongoDbParams)
     }
 
 }
