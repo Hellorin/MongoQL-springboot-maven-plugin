@@ -1,0 +1,10 @@
+type Person {
+    name : String!
+    age : Int
+    bankAccount : Money
+}
+
+type Money {
+    debit : Int!
+    credit : Int!
+}
