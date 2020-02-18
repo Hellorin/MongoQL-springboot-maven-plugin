@@ -52,9 +52,6 @@ As for the setup of this plugin, it can be used like that:
 </plugin>
 ```
 
-## Current Limitations
-Since it's in the early stages, there is, sadly, a couple limitations:
-
 ## Technologies
 - Kotlin
 - Mockito
