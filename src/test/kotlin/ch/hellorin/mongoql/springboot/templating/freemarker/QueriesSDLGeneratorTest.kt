@@ -40,8 +40,7 @@ internal class QueriesSDLGeneratorTest {
         // Then
         Assert.assertTrue(File(listOf(generationFilePath, "query.graphqls").joinToString(File.separator)).exists())
 
-        var fileContent = File(listOf(generationFilePath, "query.graphqls").joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining())
-
+        val fileContent = File(listOf(generationFilePath, "query.graphqls").joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining())
         val expectedFileContent = File(listOf(".", "src", "test", "resources", "test-resources", "query.graphqls").joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining("\n"))
 
         Assert.assertEquals(cleanStringForAssertion(expectedFileContent), cleanStringForAssertion(fileContent))
