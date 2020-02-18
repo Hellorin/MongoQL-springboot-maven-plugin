@@ -10,7 +10,7 @@ import java.util.stream.Collectors
 
 internal class ConfigurationGeneratorTest {
     @Test
-    fun `test`() {
+    fun `generate spring boot configuration class`() {
         // Given
         val filePath = listOf(".", "target", "tests", "testFolder", "graphql").joinToString(separator = File.separator)
         val packageName = "com.hellorin"
