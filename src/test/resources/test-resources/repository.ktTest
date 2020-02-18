@@ -1,0 +1,10 @@
+package com.hellorin
+
+import ch.hellorin.graphqlmongoexplorer.Person
+import org.springframework.context.annotation.Primary
+import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+@Primary
+interface MongoPersonDao : MongoRepository<Person, String>
