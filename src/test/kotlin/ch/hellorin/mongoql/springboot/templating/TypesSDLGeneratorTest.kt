@@ -1,5 +1,6 @@
 package ch.hellorin.mongoql.springboot.templating
 
+import ch.hellorin.mongoql.utils.cleanStringForAssertion
 import com.hellorin.mongoql.Attribute
 import com.hellorin.mongoql.Type
 import org.junit.Assert
@@ -41,11 +42,4 @@ internal class TypesSDLGeneratorTest {
         val fileContent = file.bufferedReader().lines().collect(Collectors.joining("\n"))
         Assert.assertEquals(cleanStringForAssertion(expectedFileContent), cleanStringForAssertion(fileContent))
     }
-
-    private fun cleanStringForAssertion(input : String) : String = input
-                .replace("\n", "")
-                .replace("\r", "")
-                .replace("\t", "")
-                .replace(" ", "")
-                .trim()
 }
