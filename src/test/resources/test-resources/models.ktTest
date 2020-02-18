@@ -1,0 +1,30 @@
+package com.hellorin
+
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
+
+@Document(collection= "col")
+data class Person (
+    @Id
+    val _id : String,
+    val name : String,
+    val age : Int?,
+    val bankAccount : Money?
+) {
+    constructor() : this(
+        "",
+        "",
+        null,
+        null
+    )
+}
+
+data class Money (
+    val debit : Int,
+    val credit : Int
+) {
+    constructor(): this(
+    0,
+    0
+    )
+}
