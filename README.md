@@ -1,4 +1,7 @@
 # MongoQL-springboot-maven-plugin
+[![Build Status](https://travis-ci.com/Hellorin/MongoQL-springboot-maven-plugin.svg?branch=master)](https://travis-ci.com/Hellorin/MongoQL-springboot-maven-plugin)
+[![codecov](https://codecov.io/gh/Hellorin/MongoQL-springboot-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/Hellorin/MongoQL-springboot-maven-plugin)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Hellorin_MongoQL-springboot-maven-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=Hellorin_MongoQL-springboot-maven-plugin)
 
 ## Purpose
 In a nutshell, the purpose of this tool is to generate at *compile-time* the nut and bolt to easily explore a MongoDB database/collection.
