@@ -1,0 +1,7 @@
+language: java
+
+script:
+  - "mvn test integration-test -Djava.io.tmpdir=./folder -Pintegration-tests"
+
+
+after_script: bash <(curl -s https://codecov.io/bash)
