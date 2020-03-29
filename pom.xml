@@ -36,17 +36,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- look why we need this dependency here... it should be included with mongoql-core -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.10.0</version>
-        </dependency>
-
         <dependency>
             <groupId>io.github.hellorin</groupId>
             <artifactId>mongoql-core</artifactId>
             <version>1.0.2</version>
+            <classifier>jar-with-dependencies</classifier>
         </dependency>
 
         <dependency>
@@ -138,6 +132,25 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
