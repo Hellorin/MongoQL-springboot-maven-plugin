@@ -1,0 +1,34 @@
+<Settings Xmlns="Http://Maven.Apache.Org/SETTINGS/1.0.0"
+          Xmlns:Xsi="Http://Www.W3.Org/2001/XMLSchema-Instance"
+          Xsi:SchemaLocation="Http://Maven.Apache.Org/SETTINGS/1.0.0
+                      Http://Maven.Apache.Org/Xsd/Settings-1.0.0.Xsd">
+    <activeProfiles>
+        <activeProfile>github</activeProfile>
+    </activeProfiles>
+
+    <profiles>
+        <profile>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+                <repository>
+                    <id>github</id>
+                    <name>Github OWNER Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/HELLORIN/MONGOQL-CORE</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>${env.GITHUB_USERNAME}</username>
+            <password>${env.GITHUB_TOKEN}</password>
+        </server>
+    </servers>
+</Settings>
