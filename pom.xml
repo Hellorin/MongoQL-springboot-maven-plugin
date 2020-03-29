@@ -6,7 +6,7 @@
 
     <groupId>io.github.hellorin.mongoql</groupId>
     <artifactId>mongoql-springboot-maven-plugin</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.2</version>
 
     <packaging>maven-plugin</packaging>
 
@@ -157,7 +157,7 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
+            <id>github-mongoql-springboot-maven-plugin</id>
             <name>GitHub OWNER Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/Hellorin/MongoQL-springboot-maven-plugin</url>
         </repository>
