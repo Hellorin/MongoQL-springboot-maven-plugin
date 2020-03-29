@@ -13,6 +13,9 @@ import java.io.File
 @Mojo(name = "generateMongoqlClasses")
 class SpringBootClassesGenerator : AbstractMojo() {
 
+    @Parameter(property = "generateMongoqlClasses.skip", required = false)
+    var skip: Boolean = false
+
     @Parameter(property = "generateMongoqlClasses.package", required = true)
     lateinit var packageName: String
 
@@ -23,22 +26,26 @@ class SpringBootClassesGenerator : AbstractMojo() {
     lateinit var collectionName: String
 
     override fun execute() {
-        File("./generated-sources/src/main/kotlin").deleteRecursively()
-        File("./generated-sources/src/main/kotlin").mkdirs()
+        if (!skip) {
+            File("./generated-sources/src/main/kotlin").deleteRecursively()
+            File("./generated-sources/src/main/kotlin").mkdirs()
 
-        val mongoDbParams = MongoDBParams.Builder(databaseName, collectionName).build()
+            val mongoDbParams = MongoDBParams.Builder(databaseName, collectionName).build()
 
-        val graphqlParams = GraphQLParams.Builder(rootTypeName = "Person").build()
+            val graphqlParams = GraphQLParams.Builder(rootTypeName = "Person").build()
 
-        val graphQLTypes = MongoQLSchemaGenerator().generate(mongoDbParams, graphqlParams)
+            val graphQLTypes = MongoQLSchemaGenerator().generate(mongoDbParams, graphqlParams)
 
-        ModelsGenerator().generate(packageName, graphQLTypes, mongoDbParams)
-        RepositoryGenerator().generate(packageName, graphQLTypes)
-        QueryResolverGenerator().generate(packageName, graphQLTypes)
-        ConfigurationGenerator().generate(packageName, graphQLTypes)
-        TypesSDLGenerator().generate(graphQLTypes)
-        QueriesSDLGenerator().generate(graphQLTypes)
-        ApplicationConfigurationGenerator().generate(graphQLTypes, mongoDbParams)
+            ModelsGenerator().generate(packageName, graphQLTypes, mongoDbParams)
+            RepositoryGenerator().generate(packageName, graphQLTypes)
+            QueryResolverGenerator().generate(packageName, graphQLTypes)
+            ConfigurationGenerator().generate(packageName, graphQLTypes)
+            TypesSDLGenerator().generate(graphQLTypes)
+            QueriesSDLGenerator().generate(graphQLTypes)
+            ApplicationConfigurationGenerator().generate(graphQLTypes, mongoDbParams)
+        } else {
+            log.info("Generation skipped. Should be only used when no integration tests are ran")
+        }
     }
 
 }
