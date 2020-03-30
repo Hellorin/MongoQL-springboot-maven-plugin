@@ -6,7 +6,7 @@
 
     <groupId>io.github.hellorin.mongoql</groupId>
     <artifactId>mongoql-springboot-maven-plugin</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <packaging>maven-plugin</packaging>
 
@@ -155,14 +155,12 @@
         </plugins>
     </build>
 
-
-
     <profiles>
         <profile>
+            <id>github</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <id>github</id>
             <repositories>
                 <repository>
                     <id>github-mongoql-core</id>
