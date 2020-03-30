@@ -13,11 +13,6 @@
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>true</enabled></snapshots>
                 </repository>
-                <repository>
-                    <id>github</id>
-                    <name>Github OWNER Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/HELLORIN/MONGOQL-CORE</url>
-                </repository>
             </repositories>
         </profile>
     </profiles>
