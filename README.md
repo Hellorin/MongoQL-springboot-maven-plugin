@@ -9,6 +9,16 @@ In a nutshell, the purpose of this tool is to generate at *compile-time* the nut
 ## How to use
 Since this maven plugin uses **MongoQL-core**, please refer to [its readme](https://github.com/Hellorin/MongoQL-core) for the initial setup of MongoDB data.
 
+The mojo holds almost all required dependencies needed to run SpringBoot and GraphQL. Therefore it must be declared as dependencies:
+```xml
+<!-- Used to gather all dependencies required to run springboot and graphql -->
+<dependency>
+        <groupId>io.github.hellorin.mongoql</groupId>
+        <artifactId>mongoql-springboot-maven-plugin</artifactId>
+        <version>${mongoql-springboot-maven-plugin.version}</version>
+        <classifier>jar-with-dependencies</classifier>
+</dependency>
+```
 As for the setup of this plugin, it can be used like that:
 ```xml
 <!-- 1. Generate MongoQL sources-->
@@ -77,6 +87,8 @@ As for the setup of this plugin, it can be used like that:
 	</executions>
 </plugin>
 ```
+
+Please note that you can refer to [my MongoQL kotlin explorer project](https://github.com/Hellorin/MongoQL-kotlin-explorer) for a simple overview on how to use this plugin.
 
 ## Technologies
 - Kotlin
