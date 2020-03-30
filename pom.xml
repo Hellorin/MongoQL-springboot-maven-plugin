@@ -155,13 +155,23 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>github-mongoql-core</id>
-            <name>Github OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/HELLORIN/MONGOQL-CORE</url>
-        </repository>
-    </repositories>
+
+
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>github</id>
+            <repositories>
+                <repository>
+                    <id>github-mongoql-core</id>
+                    <name>Github OWNER Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/HELLORIN/MONGOQL-CORE</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
 
     <distributionManagement>
         <repository>
