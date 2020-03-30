@@ -11,48 +11,71 @@ Since this maven plugin uses **MongoQL-core**, please refer to [its readme](http
 
 As for the setup of this plugin, it can be used like that:
 ```xml
-<plugin>
-    <groupId>io.github.hellorin.mongoql</groupId>
-    <artifactId>mongoql-springboot-maven-plugin</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <configuration>
-        <packageName>yourBasePackageForClassesGeneration</packageName>
-        <databaseName>yourMongoDBDatabaseName</databaseName>
-        <collectionName>yourMongoDBCollectionName</collectionName>
-    </configuration>
-    <executions>
-        <execution>
-            <id>generateMongoQLClasses</id>
-            <phase>generate-sources</phase>
-            <goals>
-                <goal>generateMongoqlClasses</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-<!-- Required to copy resources after generation -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-resources-plugin</artifactId>
-    <version>3.0.2</version>
-    <executions>
-        <execution>
-            <id>copy-resources-post-compile</id>
-            <phase>process-resources</phase>
-            <goals>
-                <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-                <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                <resources>
-                    <resource>
-                        <directory>${project.basedir}/generated-resources</directory>
-                    </resource>
-                </resources>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
+<!-- 1. Generate MongoQL sources-->
+            <plugin>
+                <groupId>io.github.hellorin.mongoql</groupId>
+                <artifactId>mongoql-springboot-maven-plugin</artifactId>
+                <version>${mongoql-springboot-maven-plugin.version}</version>
+                <configuration>
+                    <packageName>io.github.hellorin.graphqlmongoexplorer</packageName>
+                    <databaseName>myDatabase</databaseName>
+                    <collectionName>myCollection</collectionName>
+                    <skip>${generation-skipped}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generateMongoQLClasses</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generateMongoqlClasses</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 2. Copy MongoQL generated sources -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/src/main/kotlin</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 3. Copy MongoQL generated resources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources-post-compile</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/target/generated-resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 ```
 
 ## Technologies
