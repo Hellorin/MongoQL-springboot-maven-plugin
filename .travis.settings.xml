@@ -1,24 +1,7 @@
 <settings>
-    <activeProfiles>
-        <activeProfile>github</activeProfile>
-    </activeProfiles>
-
-    <profiles>
-        <profile>
-            <id>github</id>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
     <servers>
         <server>
-            <id>github</id>
+            <id>github-mongoql-core</id>
             <username>Hellorin</username>
             <password>${env.GITHUB_TOKEN}</password>
         </server>
