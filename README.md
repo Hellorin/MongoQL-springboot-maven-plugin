@@ -12,7 +12,7 @@ Since this maven plugin uses **MongoQL-core**, please refer to [its readme](http
 As for the setup of this plugin, it can be used like that:
 ```xml
 <plugin>
-    <groupId>ch.hellorin.mongoql</groupId>
+    <groupId>io.github.hellorin.mongoql</groupId>
     <artifactId>mongoql-springboot-maven-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <configuration>

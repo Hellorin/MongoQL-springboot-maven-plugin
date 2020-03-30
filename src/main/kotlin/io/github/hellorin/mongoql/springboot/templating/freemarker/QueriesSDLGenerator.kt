@@ -4,7 +4,7 @@ import io.github.hellorin.mongoql.Type
 import java.io.File
 
 class QueriesSDLGenerator(
-        private val folder : String = listOf(".", "generated-resources", "graphql").joinToString(separator = File.separator)
+        private val folder : String = listOf(".", "target", "generated-resources", "graphql").joinToString(separator = File.separator)
 ) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename() = "queries.ftl"
 

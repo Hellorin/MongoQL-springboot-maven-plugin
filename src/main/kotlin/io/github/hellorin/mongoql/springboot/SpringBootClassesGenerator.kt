@@ -27,8 +27,8 @@ class SpringBootClassesGenerator : AbstractMojo() {
 
     override fun execute() {
         if (!skip) {
-            File("./generated-sources/src/main/kotlin").deleteRecursively()
-            File("./generated-sources/src/main/kotlin").mkdirs()
+            File("./target/generated-sources/src/main/kotlin").deleteRecursively()
+            File("./target/generated-sources/src/main/kotlin").mkdirs()
 
             val mongoDbParams = MongoDBParams.Builder(databaseName, collectionName).build()
 

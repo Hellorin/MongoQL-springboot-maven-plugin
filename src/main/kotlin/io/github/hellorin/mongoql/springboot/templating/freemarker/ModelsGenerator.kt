@@ -5,7 +5,7 @@ import io.github.hellorin.mongoql.db.MongoDBParams
 import java.io.File
 
 class ModelsGenerator(
-        private val folder: String = listOf(".", "generated-sources", "src", "main", "kotlin").joinToString(File.separator)
+        private val folder: String = listOf(".", "target", "generated-sources", "src", "main", "kotlin").joinToString(File.separator)
 ) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename(): String = "modelClasses.ftl"
 

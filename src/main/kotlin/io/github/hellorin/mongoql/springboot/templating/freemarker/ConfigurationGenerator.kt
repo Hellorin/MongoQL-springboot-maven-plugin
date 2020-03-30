@@ -4,7 +4,7 @@ import io.github.hellorin.mongoql.Type
 import java.io.File
 
 class ConfigurationGenerator(
-        private val folder: String = listOf(".", "generated-sources", "src", "main", "kotlin").joinToString(File.separator)
+        private val folder: String = listOf(".", "target", "generated-sources", "src", "main", "kotlin").joinToString(File.separator)
 ) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename() = "configuration.ftl"
 
