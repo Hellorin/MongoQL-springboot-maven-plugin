@@ -3,7 +3,8 @@ package io.github.hellorin.mongoql.springboot.templating.freemarker
 import io.github.hellorin.mongoql.Type
 import java.io.File
 
-class RepositoryGenerator(private val folder: String = listOf(".", "target", "generated-sources", "src", "main", "kotlin").joinToString(separator = File.separator)) : MongoQLFreemarkerFileGenerator {
+class RepositoryGenerator(
+        private val folder: String = listOf(".", "target", "generated-sources", "src", "main", "kotlin").joinToString(separator = File.separator)) : MongoQLFreemarkerFileGenerator {
     override fun getTemplateFilename() = "repository.ftl"
 
     fun generate(packageName: String, types: List<Type>) {

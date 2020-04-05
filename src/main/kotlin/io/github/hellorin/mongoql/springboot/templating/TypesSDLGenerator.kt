@@ -5,7 +5,7 @@ import java.io.File
 import java.io.FileWriter
 
 class TypesSDLGenerator(
-        private val folder : String = listOf(".", "target", "generated-resources", "graphql").joinToString(File.separator)
+        private val folder : String = listOf(".", "target", "generated-sources", "graphql").joinToString(File.separator)
 ) : MongoQLFileGenerator {
     override fun processToFile(types: List<Type>, inputData: Map<String, Any>?, fileWriter: FileWriter) {
         fileWriter.write(types.joinToString(separator = "\n\n") { it.toString() })
