@@ -29,6 +29,13 @@
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
     </properties>
 
+    <scm>
+        <connection>scm:git:git://github.com/Hellorin/MongoQL-springboot-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:Hellorin/MongoQL-springboot-maven-plugin.git</developerConnection>
+        <url>https://github.com/Hellorin/MongoQL-springboot-maven-plugin/tree/master</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
