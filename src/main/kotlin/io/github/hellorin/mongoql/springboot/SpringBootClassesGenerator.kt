@@ -55,6 +55,9 @@ class SpringBootClassesGenerator(val mongoQLSchemaGenerator: MongoQLSchemaGenera
     @Parameter(property = "generateMongoqlClasses.authenticationMechanism", required = false)
     var authenticationMechanism: String? = null
 
+    @Parameter(property = "generateMongoqlClasses.useEmbeddedMongoShell", required = false)
+    var useEmbeddedMongoShell = false
+
     override fun execute() {
         if (!skip) {
             File("./target/generated-sources/src/main/kotlin").deleteRecursively()
@@ -65,6 +68,8 @@ class SpringBootClassesGenerator(val mongoQLSchemaGenerator: MongoQLSchemaGenera
                             isUsingTLS
                     ).useURI(
                             useURI
+                    ).useEmbeddedMongoShell(
+                            useEmbeddedMongoShell
                     )
 
             builder.apply { username?.let { username(username!!) } }
