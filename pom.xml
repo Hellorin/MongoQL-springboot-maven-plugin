@@ -18,7 +18,7 @@
     <properties>
         <kotlin.version>1.3.50</kotlin.version>
 
-        <mongoql-core.version>1.2.0-RC8</mongoql-core.version>
+        <mongoql-core.version>1.2.1</mongoql-core.version>
         <freemarker.version>2.3.29</freemarker.version>
         <graphql.version>5.0.2</graphql.version>
         <graphiql.version>5.0.2</graphiql.version>
@@ -179,31 +179,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.5</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>io.github.hellorin.mongoql</groupId>
-                                    <artifactId>mongoql-core</artifactId>
-                                    <version>${mongoql-core.version}</version>
-                                    <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
-                                    <includes>bin/mongodb/mongo</includes>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>

@@ -1,3 +1,7 @@
+server:
+    address: 0.0.0.0
+    port: ${r"${PORT}"}
+
 spring:
     data:
         mongodb:
