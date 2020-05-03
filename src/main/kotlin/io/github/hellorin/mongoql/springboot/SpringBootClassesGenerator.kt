@@ -3,6 +3,10 @@ package io.github.hellorin.mongoql.springboot
 import io.github.hellorin.mongoql.MongoQLSchemaGenerator
 import io.github.hellorin.mongoql.db.MongoDBParams
 import io.github.hellorin.mongoql.graphql.GraphQLParams
+import io.github.hellorin.mongoql.springboot.configuration.Language
+import io.github.hellorin.mongoql.springboot.configuration.GenerationConfiguration
+import io.github.hellorin.mongoql.springboot.configuration.JavaLanguage
+import io.github.hellorin.mongoql.springboot.configuration.KotlinLanguage
 import io.github.hellorin.mongoql.springboot.templating.TypesSDLGenerator
 import io.github.hellorin.mongoql.springboot.templating.freemarker.*
 import org.apache.maven.plugin.AbstractMojo
@@ -55,10 +59,14 @@ class SpringBootClassesGenerator(val mongoQLSchemaGenerator: MongoQLSchemaGenera
     @Parameter(property = "generateMongoqlClasses.authenticationMechanism", required = false)
     var authenticationMechanism: String? = null
 
+    @Parameter(property = "generateMongoqlClasses.language", required = true)
+    var language: String = KotlinLanguage.name()
+
     override fun execute() {
         if (!skip) {
-            File("./target/generated-sources/src/main/kotlin").deleteRecursively()
-            File("./target/generated-sources/src/main/kotlin").mkdirs()
+            val generationConfiguration = GenerationConfiguration.Builder().language(language).build()
+
+            cleanupEnv(generationConfiguration.language)
 
             val builder = MongoDBParams.Builder(databaseName, collectionName)
                     .isUsingTLS(
@@ -83,15 +91,28 @@ class SpringBootClassesGenerator(val mongoQLSchemaGenerator: MongoQLSchemaGenera
 
             val graphQLTypes = mongoQLSchemaGenerator.generate(mongoDbParams, graphqlParams)
 
-            ModelsGenerator().generate(packageName, graphQLTypes, mongoDbParams)
-            RepositoryGenerator().generate(packageName, graphQLTypes)
-            QueryResolverGenerator().generate(packageName, graphQLTypes)
-            ConfigurationGenerator().generate(packageName, graphQLTypes)
+            ModelsGenerator(language = generationConfiguration.language).generate(packageName, graphQLTypes, mongoDbParams)
+            RepositoryGenerator(language = generationConfiguration.language).generate(packageName, graphQLTypes)
+            QueryResolverGenerator(language = generationConfiguration.language).generate(packageName, graphQLTypes)
+            ConfigurationGenerator(language = generationConfiguration.language).generate(packageName, graphQLTypes)
             TypesSDLGenerator().generate(graphQLTypes)
             QueriesSDLGenerator().generate(graphQLTypes)
             ApplicationConfigurationGenerator().generate(graphQLTypes, mongoDbParams)
         } else {
             log.info("Generation skipped. Should be only used when no integration tests are ran")
+        }
+    }
+
+    fun cleanupEnv(language: Language) {
+        when(language) {
+            is KotlinLanguage -> {
+                File("./target/generated-sources/src/main/kotlin").deleteRecursively()
+                File("./target/generated-sources/src/main/kotlin").mkdirs()
+            }
+            is JavaLanguage -> {
+                File("./target/generated-sources/src/main/java").deleteRecursively()
+                File("./target/generated-sources/src/main/java").mkdirs()
+            }
         }
     }
 

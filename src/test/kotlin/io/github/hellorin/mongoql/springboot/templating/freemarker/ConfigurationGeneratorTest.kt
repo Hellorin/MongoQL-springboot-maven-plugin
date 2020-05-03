@@ -2,13 +2,31 @@ package io.github.hellorin.mongoql.springboot.templating.freemarker
 
 import io.github.hellorin.mongoql.Attribute
 import io.github.hellorin.mongoql.Type
+import io.github.hellorin.mongoql.springboot.configuration.JavaLanguage
+import io.github.hellorin.mongoql.springboot.configuration.KotlinLanguage
+import io.github.hellorin.mongoql.springboot.configuration.Language
 import io.github.hellorin.mongoql.utils.cleanStringForAssertion
 import org.junit.Assert
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.io.File
 import java.util.stream.Collectors
 
-internal class ConfigurationGeneratorTest {
+
+@RunWith(Parameterized::class)
+internal class ConfigurationGeneratorTest(private val language: Language) {
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        open fun data(): Collection<Array<Any?>> {
+            return listOf(
+                    arrayOf<Any?>(KotlinLanguage),
+                    arrayOf<Any?>(JavaLanguage)
+            )
+        }
+    }
+
     @Test
     fun `generate spring boot configuration class`() {
         // Given
@@ -34,18 +52,21 @@ internal class ConfigurationGeneratorTest {
         )
 
         // When
-        ConfigurationGenerator(filePath).generate(packageName, types)
+        ConfigurationGenerator(
+                language = language,
+                folder = filePath).generate(packageName, types)
 
         // Then
         val list = mutableListOf(filePath)
+        list.add(language.folderName())
         list.addAll(packageName.split("."))
-        list.add("Configuration.kt")
+        list.add("GraphQLConfiguration.${language.extension()}")
 
         Assert.assertTrue(File(list.joinToString(File.separator)).exists())
 
         val fileContent = File(list.joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining())
 
-        val expectedFilePath = mutableListOf(".", "src", "test", "resources", "test-resources", "configuration.ktTest")
+        val expectedFilePath = mutableListOf(".", "src", "test", "resources", "test-resources", "graphQLConfiguration.${language.extension()}Test")
         val expectedFileContent = File(expectedFilePath.joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining("\n"))
 
         Assert.assertEquals(cleanStringForAssertion(expectedFileContent), cleanStringForAssertion(fileContent))

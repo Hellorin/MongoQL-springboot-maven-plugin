@@ -1,0 +1,18 @@
+package com.hellorin;
+
+import java.util.List;
+import org.springframework.stereotype.Component;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+
+@Component
+class QueryResolver implements GraphQLQueryResolver {
+    private final MongoPersonDao dao;
+
+    public QueryResolver(MongoPersonDao dao) {
+        this.dao = dao;
+    }
+
+    public List<Person> allPerson() {
+        return dao.findAll();
+    }
+}

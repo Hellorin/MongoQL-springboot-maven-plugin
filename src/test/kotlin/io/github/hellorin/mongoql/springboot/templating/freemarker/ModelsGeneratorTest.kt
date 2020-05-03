@@ -4,12 +4,26 @@ import io.github.hellorin.mongoql.utils.cleanStringForAssertion
 import io.github.hellorin.mongoql.Attribute
 import io.github.hellorin.mongoql.Type
 import io.github.hellorin.mongoql.db.MongoDBParams
+import io.github.hellorin.mongoql.springboot.configuration.KotlinLanguage
+import io.github.hellorin.mongoql.springboot.configuration.Language
 import org.junit.Assert
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 import java.io.File
 import java.util.stream.Collectors
 
-internal class ModelsGeneratorTest {
+@RunWith(Parameterized::class)
+internal class ModelsGeneratorTest(private val language: Language) {
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        open fun data(): Collection<Array<Any?>> {
+            return listOf(
+                    arrayOf<Any?>(KotlinLanguage)
+            )
+        }
+    }
 
     @Test
     fun `generate models classes`() {
@@ -40,7 +54,7 @@ internal class ModelsGeneratorTest {
                 colName = "col").build()
 
         // When
-        ModelsGenerator(generationFilePath).generate(
+        ModelsGenerator(folder=generationFilePath).generate(
                 packageName = packageName,
                 graphQLTypes = types,
                 mongoDbParams = mongoDbParams
@@ -48,14 +62,15 @@ internal class ModelsGeneratorTest {
 
         // Then
         val filePath = mutableListOf(generationFilePath)
+        filePath.add(language.folderName())
         filePath.addAll(packageName.split("."))
-        filePath.add("Models.kt")
+        filePath.add("Models.${language.extension()}")
 
         Assert.assertTrue(File(filePath.joinToString(File.separator)).exists())
 
         val fileContent = File(filePath.joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining())
 
-        val expectedFileContent = File(listOf(".", "src", "test", "resources", "test-resources", "models.ktTest").joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining("\n"))
+        val expectedFileContent = File(listOf(".", "src", "test", "resources", "test-resources", "models.${language.extension()}Test").joinToString(File.separator)).bufferedReader().lines().collect(Collectors.joining("\n"))
 
         Assert.assertEquals(cleanStringForAssertion(expectedFileContent), cleanStringForAssertion(fileContent))
     }
