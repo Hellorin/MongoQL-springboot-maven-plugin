@@ -27,6 +27,7 @@ As for the setup of this plugin, it can be used like that:
     <artifactId>mongoql-springboot-maven-plugin</artifactId>
     <version>${mongoql-springboot-maven-plugin.version}</version>
     <configuration>
+        <language>java</language>
         <packageName>io.github.hellorin.graphqlmongoexplorer</packageName>
         <databaseName>myDatabase</databaseName>
         <collectionName>myCollection</collectionName>
