@@ -9,7 +9,7 @@ public class Models {
 @Document(collection= "${collectionName}")
 class ${rootType} {
     @Id
-    private final String _id;
+    private String _id;
 
     <#list attributes as attribute>
         <#if attribute.name != "_id">
@@ -54,6 +54,38 @@ class ${rootType} {
             </#list>
         );
     }
+
+    public String get_Id() {
+        return this._id;
+    }
+
+    public void set_Id(String _id) {
+        this._id = _id;
+    }
+
+    <#list attributes as attribute>
+        <#if attribute.name != "_id">
+            <#if attribute.types[0] == "Int">
+    public Integer get${attribute.name}() {
+        return this.${attribute.name};
+    }
+            <#else>
+    public ${attribute.types[0]} get${attribute.name?cap_first}() {
+        return this.${attribute.name};
+    }
+            </#if>
+
+            <#if attribute.types[0] == "Int">
+    public void set${attribute.name?cap_first}(Integer ${attribute.name?cap_first}) {
+        this.${attribute.name} = ${attribute.name};
+    }
+            <#else>
+    public void set${attribute.name?cap_first}(${attribute.types[0]} ${attribute.name}) {
+        this.${attribute.name} = ${attribute.name};
+    }
+            </#if>
+        </#if>
+    </#list>
 }
 
 <#list types as type>
@@ -101,5 +133,29 @@ class ${type.typeName?cap_first} {
             </#list>
         );
     }
+
+    <#list type.attributes as attribute>
+        <#if attribute.name != "_id">
+            <#if attribute.types[0] == "Int">
+    public Integer get${attribute.name?cap_first}(Integer ${attribute.name?cap_first}) {
+        return this.${attribute.name};
+    }
+            <#else>
+    public ${attribute.types[0]} get${attribute.name?cap_first}() {
+        return this.${attribute.name};
+    }
+            </#if>
+
+            <#if attribute.types[0] == "Int">
+    public void set${attribute.name?cap_first}(Integer ${attribute.name}) {
+        this.${attribute.name} = ${attribute.name};
+    }
+            <#else>
+    public void set${attribute.name?cap_first}(${attribute.types[0]} ${attribute.name}) {
+        this.${attribute.name} = ${attribute.name};
+    }
+            </#if>
+        </#if>
+    </#list>
 }
 </#list>
